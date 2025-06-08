@@ -20,16 +20,16 @@ if [ -z "$THEMES" ]; then
 fi
 
 # fzf 또는 select로 theme 선택
-# if command -v fzf > /dev/null; then
-#   SELECTED=$(echo "$THEMES" | fzf --prompt="🌟 Select Alacritty Theme: ")
-# else
+if command -v fzf > /dev/null; then
+  SELECTED=$(echo "$THEMES" | fzf --prompt="🌟 Select Alacritty Theme: ")
+else
 # 기본 select 메뉴
 echo "🌟 사용할 Alacritty Theme을 선택하세요:"
-select opt in $THEMES; do
-  SELECTED="$opt"
-  break
-done
-# fi
+  select opt in $THEMES; do
+    SELECTED="$opt"
+    break
+  done
+fi
 
 # 선택한 theme이 비어있으면 종료
 if [ -z "$SELECTED" ]; then
