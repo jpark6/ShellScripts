@@ -21,9 +21,11 @@ if [ -z "$SCHEMES" ]; then
   exit 1
 fi
 
+CURRENT_SCHEME=$(awk -F '=' '/color_scheme/ { print $2  }' $WEZTERM_FILE | sed 's|[ "]||g')
+
 # fzf 또는 select로 scheme 선택
 if command -v fzf > /dev/null; then
-  SELECTED=$(echo "$SCHEMES" | sed "s|\r||" | fzf --prompt="🌟 Select WezTerm Scheme: ")
+  SELECTED=$(echo "$SCHEMES" | sed "s|\r||" | fzf --prompt="🎢 Current Scheme: $CURRENT_SCHEME 🌟 Select WezTerm Scheme: ")
 else
   # 기본 select 메뉴
   echo "🌟 사용할 WezTerm Scheme을 선택하세요:"

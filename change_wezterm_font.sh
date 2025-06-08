@@ -21,7 +21,7 @@ case "$OSTYPE" in
     ;;
 esac
 
-
+CURRENT_FONT=$(awk -F '[(),"]' '/wezterm.font/ { print $3 }' $WEZTERM_FILE | sed 's| Nerd Font||')
 
 # 프리셋 목록이 비어있다면 종료
 if [ -z "$FONTS" ]; then
@@ -29,9 +29,10 @@ if [ -z "$FONTS" ]; then
   exit 1
 fi
 
+
 # fzf 또는 select로 font 선택
 if command -v fzf > /dev/null; then
-  SELECTED=$(echo "$FONTS" | sed "s|\r||" | fzf --prompt="🌟 Select WezTerm Font: ")
+  SELECTED=$(echo "$FONTS" | sed "s|\r||" | fzf --prompt="🖋 CurrentFont: $CURRENT_FONT 🌟 Select WezTerm Font: ")
 else
   # 기본 select 메뉴
   echo "🌟 사용할 WezTerm Font를 선택하세요:"
