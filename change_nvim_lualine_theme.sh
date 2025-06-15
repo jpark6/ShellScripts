@@ -2,11 +2,11 @@
 
 case "$OSTYPE" in
   darwin*)
-    LUA_FILE="/Users/jakepark/Repos/.settings/nvim/lua/config/plugins.lua"
+    LUA_FILE="/Users/jakepark/Repos/.settings/nvim/init.lua"
     THEME_DIR="/Users/jakepark/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
     ;;
   *)
-    LUA_FILE="/mnt/d/Repos/.settings/nvim/lua/config/plugins.lua"
+    LUA_FILE="/mnt/d/Repos/.settings/nvim/init.lua"
     THEME_DIR="/home/ubuntu/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
     ;;
 esac

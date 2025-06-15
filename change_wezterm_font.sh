@@ -4,20 +4,12 @@ case "$OSTYPE" in
   darwin*)
     WEZTERM_FILE="/Users/jakepark/Repos/.settings/.wezterm.lua"
     # 현재 사용 가능한 font 목록 가져오기
-    FONTS=$(
-    wezterm ls-fonts --list-system \
-      | awk -F '[(),]' '/Nerd Font/ && /wezterm.font/ { gsub(/"/, "", $2); if ($2 ~ / Nerd Font$/) { sub(/ Nerd Font$/, "", $2); print $2 } }' \
-      | sort -u
-      )
+    FONTS=$(fc-list | awk -F'[:,]' ' / Nerd Font/ { print $2 } ' | sed "s/^ //" | sort | uniq )
     ;;
   *)
     WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
     # 현재 사용 가능한 font 목록 가져오기
-    FONTS=$(
-    wezterm.exe ls-fonts --list-system \
-      | awk -F '[(),]' '/Nerd Font/ && /wezterm.font/ { gsub(/"/, "", $2); if ($2 ~ / Nerd Font$/) { sub(/ Nerd Font$/, "", $2); print $2 } }' \
-      | sort -u
-      )
+    FONTS=$(fc-list | awk -F'[:,]' ' / Nerd Font/ { print $2 } ' | sed "s/^ //" | sort | uniq )
     ;;
 esac
 
@@ -53,9 +45,9 @@ echo "✅ '$SELECTED' 폰트를 적용합니다."
 
 case "$OSTYPE" in
   darwin*)
-    sed -i "" "s|wezterm.font(\".*\",|wezterm.font(\"$SELECTED Nerd Font\",|" $WEZTERM_FILE
+    sed -i "" "s|wezterm.font(\".*\",|wezterm.font(\"$SELECTED\",|" $WEZTERM_FILE
     ;;
   *)
-    sed -i "s|wezterm.font(\".*\",|wezterm.font(\"$SELECTED Nerd Font\",|" $WEZTERM_FILE
+    sed -i "s|wezterm.font(\".*\",|wezterm.font(\"$SELECTED\",|" $WEZTERM_FILE
     ;;
 esac
