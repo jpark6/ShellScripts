@@ -1,13 +1,22 @@
 #!/bin/bash
 
-case "$OSTYPE" in
-  darwin*)
+case "$(uname -s)" in
+  Linux*)
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+      LUA_FILE="/mnt/d/Repos/.settings/nvim/init.lua"
+      THEME_DIR="/home/ubuntu/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
+    else
+      LUA_FILE="/home/jakepark/Repos/.settings/nvim/init.lua"
+      THEME_DIR="/home/jakepark/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
+    fi
+    ;;
+  Darwin*)
     LUA_FILE="/Users/jakepark/Repos/.settings/nvim/init.lua"
     THEME_DIR="/Users/jakepark/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
     ;;
   *)
-    LUA_FILE="/mnt/d/Repos/.settings/nvim/init.lua"
-    THEME_DIR="/home/ubuntu/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
+    LUA_FILE="/home/jakepark/Repos/.settings/nvim/init.lua"
+    THEME_DIR="/home/jakepark/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
     ;;
 esac
 

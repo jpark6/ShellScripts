@@ -1,16 +1,24 @@
 #!/bin/bash
 
-case "$OSTYPE" in
-  darwin*)
+case "$(uname -s)" in
+  Linux*)
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+      WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
+      SCHEMES_FILE="/mnt/d/Repos/.settings/wezterm_color_scheme_list.txt"
+    else
+      WEZTERM_FILE="/home/jakepark/Repos/.settings/.wezterm.lua"
+      SCHEMES_FILE="/home/jakepark/Repos/.settings/wezterm_color_scheme_list.txt"
+    fi
+    ;;
+  Darwin*)
     WEZTERM_FILE="/Users/jakepark/Repos/.settings/.wezterm.lua"
     SCHEMES_FILE="/Users/jakepark/Repos/.settings/wezterm_color_scheme_list.txt"
     ;;
   *)
-    WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
-    SCHEMES_FILE="/mnt/d/Repos/.settings/wezterm_color_scheme_list.txt"
+    WEZTERM_FILE="/home/jakepark/Repos/.settings/.wezterm.lua"
+    SCHEMES_FILE="/home/jakepark/Repos/.settings/wezterm_color_scheme_list.txt"
     ;;
 esac
-
 
 # 현재 사용 가능한 scheme 목록 가져오기
 SCHEMES=$(cat $SCHEMES_FILE)

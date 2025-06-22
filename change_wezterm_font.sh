@@ -1,17 +1,22 @@
 #!/bin/bash
 
-case "$OSTYPE" in
-  darwin*)
+case "$(uname -s)" in
+  Linux*)
+    if grep -qi microsoft /proc/version 2>/dev/null; then
+      WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
+    else
+      WEZTERM_FILE="/home/jakepark/Repos/.settings/.wezterm.lua"
+    fi
+    ;;
+  Darwin*)
     WEZTERM_FILE="/Users/jakepark/Repos/.settings/.wezterm.lua"
-    # 현재 사용 가능한 font 목록 가져오기
-    FONTS=$(fc-list | awk -F'[:,]' ' / Nerd Font/ { print $2 } ' | sed "s/^ //" | sort | uniq )
     ;;
   *)
-    WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
-    # 현재 사용 가능한 font 목록 가져오기
-    FONTS=$(fc-list | awk -F'[:,]' ' / Nerd Font/ { print $2 } ' | sed "s/^ //" | sort | uniq )
+    WEZTERM_FILE="/home/jakepark/Repos/.settings/.wezterm.lua"
     ;;
 esac
+
+FONTS=$(fc-list : family | awk -F',' ' $1~/Nerd Font/ { print $1 } ' | sort | uniq )
 
 CURRENT_FONT=$(awk -F '[(),"]' '/wezterm.font/ { print $3 }' $WEZTERM_FILE | sed 's| Nerd Font||')
 
@@ -24,7 +29,7 @@ fi
 
 # fzf 또는 select로 font 선택
 if command -v fzf > /dev/null; then
-  SELECTED=$(echo "$FONTS" | sed "s|\r||" | fzf --prompt="🖋 CurrentFont: $CURRENT_FONT 🌟 Select WezTerm Font: ")
+  SELECTED=$(echo "$FONTS" | sed "s|\r||" | fzf --prompt="🖋 CurrentFont: $CURENT_FONT 🌟 Select WezTerm Font: ")
 else
   # 기본 select 메뉴
   echo "🌟 사용할 WezTerm Font를 선택하세요:"
