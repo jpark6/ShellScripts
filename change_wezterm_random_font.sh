@@ -4,15 +4,10 @@ case "$(uname -s)" in
   Linux*)
     if grep -qi microsoft /proc/version 2>/dev/null; then
       WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
-    else
-      WEZTERM_FILE="/home/jakepark/Repos/.settings/.wezterm.lua"
     fi
     ;;
-  Darwin*)
-    WEZTERM_FILE="/Users/jakepark/Repos/.settings/.wezterm.lua"
-    ;;
   *)
-    WEZTERM_FILE="/home/jakepark/Repos/.settings/.wezterm.lua"
+    WEZTERM_FILE="$HOME/Repos/dotfiles/.wezterm.lua"
     ;;
 esac
 

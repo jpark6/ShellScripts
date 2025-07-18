@@ -3,20 +3,13 @@
 case "$(uname -s)" in
   Linux*)
     if grep -qi microsoft /proc/version 2>/dev/null; then
-      ALACRITTY_FILE="/home/jakepark/Repos/.settings/alacritty/alacritty.toml.window"
-      THEME_DIR="/home/jakepark/Repos/.settings/alacritty/themes"
-    else
-      ALACRITTY_FILE="/mnt/d/Repos/.settings/alacritty/alacritty.toml"
-      THEME_DIR="/mnt/d/Repos/.settings/alacritty/themes"
+      ALACRITTY_FILE="/mnt/d/Repos/dotfiles/alacritty/alacritty.toml.window"
+      THEME_DIR="/mnt/d/Repos/dotfiles/alacritty/themes"
     fi
     ;;
-  Darwin*)
-    ALACRITTY_FILE="/Users/jakepark/repos/.settings/alacritty/alacritty.toml"
-    THEME_DIR="/Users/jakepark/repos/.settings/alacritty/themes"
-    ;;
   *)
-    ALACRITTY_FILE="/home/jakepark/Repos/.settings/alacritty/alacritty.toml"
-    THEME_DIR="/home/jakepark/Repos/.settings/alacritty/themes"
+    ALACRITTY_FILE="$HOME/repos/dotfiles/alacritty/alacritty.toml"
+    THEME_DIR="$HOME/repos/dotfiles/alacritty/themes"
     ;;
 esac
 
