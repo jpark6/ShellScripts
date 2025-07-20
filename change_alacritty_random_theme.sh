@@ -1,14 +1,14 @@
 #!/bin/bash
 
+ALACRITTY_FILE="$HOME/Repos/dotfiles/alacritty/alacritty.toml"
+THEME_DIR="$HOME/Repos/dotfiles/alacritty/themes"
+
 case "$(uname -s)" in
   Linux*)
     if grep -qi microsoft /proc/version 2>/dev/null; then
       ALACRITTY_FILE="/mnt/d/Repos/dotfiles/alacritty/alacritty.toml"
       THEME_DIR="/mnt/d/Repos/dotfiles/alacritty/themes"
-    ;;
-  *)
-    ALACRITTY_FILE="$HOME/Repos/dotfiles/alacritty/alacritty.toml"
-    THEME_DIR="$HOME/Repos/dotfiles/alacritty/themes"
+    fi
     ;;
 esac
 

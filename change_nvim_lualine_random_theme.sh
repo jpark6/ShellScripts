@@ -1,15 +1,14 @@
 #!/bin/bash
 
+LUA_FILE="$HOME/Repos/dotfiles/nvim/init.lua"
+THEME_DIR="$HOME/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
+
 case "$(uname -s)" in
   Linux*)
     if grep -qi microsoft /proc/version 2>/dev/null; then
       LUA_FILE="/mnt/d/Repos/dotfiles/nvim/init.lua"
       THEME_DIR="/home/ubuntu/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
     fi
-    ;;
-  *)
-    LUA_FILE="$HOME/Repos/dotfiles/nvim/init.lua"
-    THEME_DIR="$HOME/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes"
     ;;
 esac
 
