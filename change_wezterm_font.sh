@@ -5,7 +5,7 @@ WEZTERM_FILE="$HOME/Repos/dotfiles/.wezterm.lua"
 case "$(uname -s)" in
   Linux*)
     if grep -qi microsoft /proc/version 2>/dev/null; then
-      WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
+      WEZTERM_FILE="/mnt/c/Users/qkstj/.wezterm.lua"
     fi
     ;;
 esac

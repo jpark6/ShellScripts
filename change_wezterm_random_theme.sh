@@ -6,7 +6,7 @@ SCHEMES_FILE="$HOME/Repos/dotfiles/wezterm_color_scheme_list.txt"
 case "$(uname -s)" in
   Linux*)
     if grep -qi microsoft /proc/version 2>/dev/null; then
-      WEZTERM_FILE="/mnt/c/Users/banseok/.wezterm.lua"
+      WEZTERM_FILE="/mnt/c/Users/qkstj/.wezterm.lua"
       SCHEMES_FILE="/mnt/d/Repos/dotfiles/wezterm_color_scheme_list.txt"
     fi
     ;;
