@@ -12,7 +12,7 @@
 # ────────────────────────────────
 cd /home/ubuntu/util
 # 1. Parse arguments
-LOG_DIR="${1:-./logs}"
+LOG_DIR="${1:-$HOME/Util/logs}"
 
 # 2. Prepare log directory & file
 mkdir -p "$LOG_DIR"
