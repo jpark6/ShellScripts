@@ -12,7 +12,7 @@ esac
 
 FONTS=$(fc-list : family | awk -F',' ' $1~/Nerd Font/ { print $1 } ' | sort | uniq )
 
-CURRENT_FONT=$(awk -F '[(),"]' '/wezterm.font/ { print $3 }' $WEZTERM_FILE | sed 's| Nerd Font||')
+CURRENT_FONT=$(awk -F\" '/Nerd Font/ { print $2 }' $WEZTERM_FILE | sed 's| Nerd Font||')
 
 # 프리셋 목록이 비어있다면 종료
 if [ -z "$FONTS" ]; then
@@ -44,9 +44,9 @@ echo "✅ '$SELECTED' 폰트를 적용합니다."
 
 case "$OSTYPE" in
   darwin*)
-    sed -i "" "s|wezterm.font(\".*\",|wezterm.font(\"$SELECTED\",|" $WEZTERM_FILE
+    sed -i "" "s|\".*Nerd Font|\"$SELECTED|" $WEZTERM_FILE
     ;;
   *)
-    sed -i "s|wezterm.font(\".*\",|wezterm.font(\"$SELECTED\",|" $WEZTERM_FILE
+    sed -i "s|\".*Nerd Font|\"$SELECTED|" $WEZTERM_FILE
     ;;
 esac

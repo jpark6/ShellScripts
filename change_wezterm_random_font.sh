@@ -24,9 +24,9 @@ echo "🎰 FONT Name : $RANDOM_FONT ♣️"
 
 case "$OSTYPE" in
   darwin*)
-    sed -i "" "s|wezterm.font(\".*\",|wezterm.font(\"$RANDOM_FONT\",|" $WEZTERM_FILE
+    sed -i "" "s|\".*Nerd Font|\"$RANDOM_FONT|" $WEZTERM_FILE
     ;;
   *)
-    sed -i "s|wezterm.font(\".*\",|wezterm.font(\"$RANDOM_FONT\",|" $WEZTERM_FILE
+    sed -i "s|\".*Nerd Font|\"$RANDOM_FONT|" $WEZTERM_FILE
     ;;
 esac
