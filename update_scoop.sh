@@ -10,7 +10,7 @@
 # Default log dir: ./logs
 
 # ────────────────────────────────
-cd /home/ubuntu/util
+cd $HOME/Util
 # 1. Parse arguments
 LOG_DIR="${1:-$HOME/Util/logs}"
 
@@ -40,11 +40,11 @@ echo "🧹 Cleaning up outdated versions..." | tee -a "$LOG_FILE"
 scoop cleanup "*" 2>&1 | tee -a "$LOG_FILE"
 
 # 7. Print Still Running Error
-if [ `grep -c "still running." "$LOG_FILE"` -gt 0 ]; then
+if [ $(grep -c "still running." "$LOG_FILE") -gt 0 ]; then
   echo "" | tee -a "$LOG_FILE"
   echo "⛔ Error: Still Running"| tee -a "$LOG_FILE"
   echo "❌ Quit this apps, if you want update"| tee -a "$LOG_FILE"
-  echo "`grep 'still running.' $LOG_FILE` | awk -F'\"' '{print $2}'" | tee -a "$LOG_FILE"
+  echo "$(grep 'still running.' $LOG_FILE) | awk -F'\"' '{print $2}'" | tee -a "$LOG_FILE"
 fi
 
 # 8. Remove ^M(\r) EOF character and no data row
