@@ -13,6 +13,8 @@ esac
 FONTS=$(fc-list : family | awk -F',' ' $1~/Nerd Font/ { print $1 } ' | sort | uniq )
 
 CURRENT_FONT=$(awk -F\" '/Nerd Font/ { print $2 }' $WEZTERM_FILE | sed 's| Nerd Font||')
+echo "$WEZTERM_FILE"
+echo "$CURRENT_FONT"
 
 # 프리셋 목록이 비어있다면 종료
 if [ -z "$FONTS" ]; then

@@ -39,12 +39,19 @@ echo "" | tee -a "$LOG_FILE"
 echo "🧹 Cleaning up outdated versions..." | tee -a "$LOG_FILE"
 scoop cleanup "*" 2>&1 | tee -a "$LOG_FILE"
 
-# 7. Print Still Running Error
+# 7. Print Install Success Apps (version)
+if [ $(grep -c "installed successfully!" "$LOG_FILE") -gt 0 ]; then
+  echo "" | tee -a "$LOG_FILE"
+  echo "⭐ Update Success"| tee -a "$LOG_FILE"
+  echo "$(grep 'installed successfully!' $LOG_FILE | awk -F' was ' '{print $1}')" | tee -a "$LOG_FILE"
+fi
+
+# 7. Print Still Running Fail Apps
 if [ $(grep -c "still running." "$LOG_FILE") -gt 0 ]; then
   echo "" | tee -a "$LOG_FILE"
-  echo "⛔ Error: Still Running"| tee -a "$LOG_FILE"
-  echo "❌ Quit this apps, if you want update"| tee -a "$LOG_FILE"
-  echo "$(grep 'still running.' $LOG_FILE) | awk -F'\"' '{print $2}'" | tee -a "$LOG_FILE"
+  echo "⛔ Update Fail: Still Running"| tee -a "$LOG_FILE"
+  echo "❌ Close this apps, if you want to update"| tee -a "$LOG_FILE"
+  echo "$(grep 'still running.' $LOG_FILE | awk -F'\"' '{print $2}')" | tee -a "$LOG_FILE"
 fi
 
 # 8. Remove ^M(\r) EOF character and no data row
