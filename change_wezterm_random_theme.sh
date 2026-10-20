@@ -14,20 +14,26 @@ esac
 
 THEMES=()
 while IFS= read -r line; do
-  THEMES+=("$line")
-done < <(cat $SCHEMES_FILE)
+  [[ -n "$line" ]] && THEMES+=("$line")
+done < <(sed "s|\r||" "$SCHEMES_FILE")
 THEME_CNT="${#THEMES[@]}"
 
-RANDOM_THEME="$(echo "${THEMES[RANDOM % $THEME_CNT ]}" | sed "s|\r||")"
+# 테마 목록이 비어있다면 종료
+if ((THEME_CNT == 0)); then
+  echo "❌ WezTerm Scheme 목록을 불러올 수 없습니다."
+  exit 1
+fi
+
+RANDOM_THEME="${THEMES[RANDOM % THEME_CNT]}"
 
 echo "🔀 Change WezTerm Random Theme 🎲"
 echo "🎰 Theme Name : $RANDOM_THEME ♣️"
 
 case "$OSTYPE" in
   darwin*)
-    sed -i "" "s|config.color_scheme = \".*\"|config.color_scheme = \"$RANDOM_THEME\"|" $WEZTERM_FILE
+    sed -i "" "s|config.color_scheme = \".*\"|config.color_scheme = \"$RANDOM_THEME\"|" "$WEZTERM_FILE"
     ;;
   *)
-    sed -i "s|config.color_scheme = \".*\"|config.color_scheme = \"$RANDOM_THEME\"|" $WEZTERM_FILE
+    sed -i "s|config.color_scheme = \".*\"|config.color_scheme = \"$RANDOM_THEME\"|" "$WEZTERM_FILE"
     ;;
 esac

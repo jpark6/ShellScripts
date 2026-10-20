@@ -12,23 +12,28 @@ case "$(uname -s)" in
     ;;
 esac
 
-THEME_CNT=$(ls $THEME_DIR | wc -l)
-
 THEMES=()
 while IFS= read -r line; do
   THEMES+=("$line")
-done < <(ls $THEME_DIR)
+done < <(find "$THEME_DIR" -type f -name "*.lua" -exec basename {} .lua \; | sort)
+THEME_CNT=${#THEMES[@]}
 
-RANDOM_THEME=$(echo "${THEMES[RANDOM % $THEME_CNT + 1]}" | sed 's|\.lua$||')
+# 테마 목록이 비어있다면 종료
+if ((THEME_CNT == 0)); then
+  echo "❌ LuaLine Theme 목록을 불러올 수 없습니다."
+  exit 1
+fi
+
+RANDOM_THEME="${THEMES[RANDOM % THEME_CNT]}"
 
 echo "🔀 Change nvim lualine Random Theme 🎲"
 echo "🎰 Theme Name : $RANDOM_THEME ♣️"
 
 case "$OSTYPE" in
   darwin*)
-    sed -i "" "s|theme = \".*\"|theme = \"$RANDOM_THEME\"|" $LUA_FILE
+    sed -i "" "s|theme = \".*\"|theme = \"$RANDOM_THEME\"|" "$LUA_FILE"
     ;;
   *)
-    sed -i "s|theme = \".*\"|theme = \"$RANDOM_THEME\"|" $LUA_FILE
+    sed -i "s|theme = \".*\"|theme = \"$RANDOM_THEME\"|" "$LUA_FILE"
     ;;
 esac
