@@ -30,14 +30,16 @@ preview_theme() {
   # 팔레트 0~15
   for row in 0 8; do
     for i in $(seq $row $((row + 7))); do
-      printf '%2d \033[48;2;%sm   %s ' "$i" "$(rgb "${PAL[$i]:-000000}")" "$RST"
+      printf '%2d \033[48;2;%sm  %s ' "$i" "$(rgb "${PAL[$i]:-000000}")" "$RST"
     done
     printf '\n\n'
   done
 
   # 샘플 코드: 테마 배경/전경/팔레트 색으로 직접 칠함
-  line() { # line <보이는 길이> <색칠된 텍스트>
-    printf '%s%s%s%*s%s\n' "$BGC" "$(fgc)" "$2" $((W - $1)) "" "$RST"
+  line() { # line <색칠된 텍스트>
+    local plain
+    plain=$(printf '%s' "$1" | sed $'s/\033\\[[0-9;]*m//g')
+    printf '%s%s%s%*s%s\n' "$BGC" "$(fgc)" "$1" $((W - ${#plain})) "" "$RST"
   }
   K=$(fgc "${PAL[5]}")
   S=$(fgc "${PAL[2]}")
@@ -46,19 +48,19 @@ preview_theme() {
   C=$(fgc "${PAL[8]}")
   T=$(fgc "${PAL[6]}")
   X=$(fgc)
-  line 1 ""
-  line 24 "  ${C}// ZiggZagg sample${X}"
-  line 33 "  ${K}const${X} std = ${K}@import${X}(${S}\"std\"${X});"
-  line 1 ""
-  line 27 "  ${K}pub fn${X} ${F}main${X}() ${T}!void${X} {"
-  line 33 "      ${K}var${X} i: ${T}usize${X} = ${N}1${X};"
-  line 34 "      ${K}while${X} (i <= ${N}16${X}) : (i += ${N}1${X}) {"
-  line 42 "          ${K}if${X} (i % ${N}15${X} == ${N}0${X}) {"
-  line 52 "              ${K}try${X} ${F}print${X}(${S}\"ZiggZagg\\n\"${X});"
-  line 11 "          }"
-  line 7 "      }"
-  line 3 "  }"
-  line 1 ""
+  line ""
+  line "  ${C}// ZiggZagg sample${X}"
+  line "  ${K}const${X} std = ${K}@import${X}(${S}\"std\"${X});"
+  line ""
+  line "  ${K}pub fn${X} ${F}main${X}() ${T}!void${X} {"
+  line "      ${K}var${X} i: ${T}usize${X} = ${N}1${X};"
+  line "      ${K}while${X} (i <= ${N}16${X}) : (i += ${N}1${X}) {"
+  line "          ${K}if${X} (i % ${N}15${X} == ${N}0${X}) {"
+  line "              ${K}try${X} ${F}print${X}(${S}\"ZiggZagg\\n\"${X});"
+  line "          }"
+  line "      }"
+  line "  }"
+  line ""
 }
 
 # fzf --preview 에서 재호출되는 미리보기 모드: $0 --preview <경로> [<light 경로>]
